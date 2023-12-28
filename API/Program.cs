@@ -20,7 +20,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4002"));
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4002"));
 
 app.MapControllers();
 
