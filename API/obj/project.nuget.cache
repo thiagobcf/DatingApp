@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "L84Ul2oT0hlDqPHSprdcBlZ1o6SFLrx88cKjVq/kBBrPuoo29MeB1rXQRTKynXqtJ3T058dJp3DX03g/MY8IVQ==",
+  "dgSpecHash": "UEFIkDrYYWTnh1ABSi7U7jxzHLfmQlXjhu8bFco8XgyIF60GV+2aEL5Bsym7pGwmre2BzCrek6M//vyYA32eFg==",
   "success": true,
   "projectFilePath": "/home/thiagobcf/projetos/DatingApp/API/API.csproj",
   "expectedPackageFiles": [
     "/home/thiagobcf/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/home/thiagobcf/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.14/microsoft.aspnetcore.authentication.jwtbearer.7.0.14.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.data.sqlite.core/7.0.14/microsoft.data.sqlite.core.7.0.14.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore/7.0.14/microsoft.entityframeworkcore.7.0.14.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.14/microsoft.entityframeworkcore.abstractions.7.0.14.nupkg.sha512",
@@ -26,6 +27,8 @@
     "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.abstractions/7.2.0/microsoft.identitymodel.abstractions.7.2.0.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.2.0/microsoft.identitymodel.jsonwebtokens.7.2.0.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.logging/7.2.0/microsoft.identitymodel.logging.7.2.0.nupkg.sha512",
+    "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.protocols/6.15.1/microsoft.identitymodel.protocols.6.15.1.nupkg.sha512",
+    "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.15.1/microsoft.identitymodel.protocols.openidconnect.6.15.1.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.identitymodel.tokens/7.2.0/microsoft.identitymodel.tokens.7.2.0.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
