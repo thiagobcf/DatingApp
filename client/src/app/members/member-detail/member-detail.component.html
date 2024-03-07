@@ -24,7 +24,7 @@
             <div class="card-footer">
                 <div class="btn-group d-flex">
                     <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-sucess">Messages</button>
+                    <button class="btn btn-success">Messages</button>
                 </div>
             </div>
         </div>
@@ -43,10 +43,10 @@
                 <h4>Interests</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos">                
-                <p>Photos will go here</p>
+            <tab heading="Photos" #photoTab="tab">
+                <gallery *ngIf="photoTab.active" [items]="images" class="gallery"></gallery>
             </tab>
-            <tab heading="Messages">                
+            <tab heading="Messages">
                 <p>Messages will go here</p>
             </tab>
         </tabset>
