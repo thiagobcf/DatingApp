@@ -3,7 +3,7 @@
         <h1>Your profile</h1>
     </div>
     <div class="col-8">
-        <div class="alert alert-info">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
             <p><strong>Information: </strong>You have made changes. Any unsave changes will be lost</p>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-success col-12">Save changes</button>
+                <button type="submit" [disabled]="!editForm" form="editForm" class="btn btn-success col-12">Save changes</button>
             </div>
         </div>
 
@@ -39,17 +39,23 @@
     <div class="col-8">
         <tabset class="member-tabset">
             <tab heading="About {{member.knownAs}}">
-                <form>
+                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
                     <h4 class="mt-2">Description</h4>
-                    <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction"
+                    <textarea class="form-control"
+                        [(ngModel)]="member.introduction"
+                        name="introduction"
                         rows="6"
                     ></textarea>
                     <h4 class="mt-2">Looking for</h4>
-                        <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor"
+                        <textarea class="form-control"
+                            [(ngModel)]="member.lookingFor"
+                            name="lookingFor"
                             rows="6"
                         ></textarea>
                         <h4 class="mt-2">Interests</h4>
-                        <textarea class="form-control" [(ngModel)]="member.interests" name="interests"
+                        <textarea class="form-control" 
+                            [(ngModel)]="member.interests" 
+                            name="interests"
                             rows="6"
                         ></textarea>
                         <h4 class="mt-2">Location Details: </h4>
