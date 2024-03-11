@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Member } from '../../_models/member';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-member-card',
