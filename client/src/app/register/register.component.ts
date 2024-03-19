@@ -4,7 +4,7 @@ import { AccountService } from '../_services/account.service';
 import { response } from 'express';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThisReceiver } from '@angular/compiler';
 
 @Component({
@@ -25,9 +25,10 @@ export class RegisterComponent implements OnInit {
 
   initializeForm() {
     this.registerForm = new FormGroup({
-      username : new FormControl(),
-      password : new FormControl(),
-      confirmPassword : new FormControl(),
+      username : new FormControl('Hello', Validators.required),
+      password : new FormControl('', [Validators.required,
+        Validators.minLength(4), Validators.maxLength(8)]),
+      confirmPassword : new FormControl('', Validators.required),
     })
   }
 
