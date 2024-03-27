@@ -12,5 +12,7 @@ namespace API.Helpers
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;       // caso o usuario passe um valor maior que valor maximo estabelecido, retorne o MaxPageSize(50).
         }
         
+        public string CurrentUsername { get; set; }
+        public string Gender { get; set; }
     }
 }
