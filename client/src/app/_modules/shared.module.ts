@@ -8,6 +8,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -21,6 +23,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
+    
+    
   ],
   exports: [
     BsDropdownModule,
@@ -29,7 +33,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
     FileUploadModule,
     BsDatepickerModule,
     PaginationModule,
-    ButtonsModule
+    ButtonsModule,
+    
   ]
 })
 export class SharedModule { }
