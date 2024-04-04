@@ -5,7 +5,7 @@ namespace API.Entities
     {
         public AppUser SourceUser { get; set; }
         public int SourceUserId { get; set; }
-        public AppUser TagerUser { get; set; }
-        public int TagerUserId { get; set; }
+        public AppUser TargetUser { get; set; }
+        public int TargetUserId { get; set; }
     }
 }
