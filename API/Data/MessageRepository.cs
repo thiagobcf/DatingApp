@@ -64,7 +64,7 @@ namespace API.Data
                     m.RecipentUsername == recipientUserName && 
                     m.SenderUsername == currentUserName
                 )
-                .OrderByDescending(m => m.MessageSent)
+                .OrderBy(m => m.MessageSent)
                 .ToListAsync();
             
             var unreadMessages = messages

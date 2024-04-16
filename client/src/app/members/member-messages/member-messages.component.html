@@ -6,7 +6,11 @@
       <li *ngFor="let message of messages">
         <div>
           <samp class="chat-img float-end">
-            <img class="rounded-circle" src="{{message.senderPhotoUrl || './assets/user.png'}}" alt="image of user">
+            <img 
+              class="rounded-circle" 
+              src="{{message.senderPhotoUrl || './assets/user.png'}}" 
+              alt="image of user"
+            >
           </samp>
           <div class="chat-body">
             <div class="header">
@@ -26,11 +30,21 @@
   </div>
 
   <div class="card-footer">
-    <form>
+    <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
       <div class="input-group">
-        <input type="text" class="form-control input-sm" placeholder="send a private message">
+        <input 
+          name="messageContent"
+          required
+          [(ngModel)]="messageContent"
+          type="text" 
+          class="form-control input-sm" 
+          placeholder="send a private message">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">Send</button>
+          <button 
+            [disabled]="!messageForm.valid" 
+            class="btn btn-primary" 
+            type="submit">Send
+          </button>
         </div>
       </div>
     </form>
