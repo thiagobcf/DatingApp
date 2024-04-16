@@ -1,6 +1,8 @@
 <div class="card">
   <div class="class-body">
-    <div *ngIf="messages.length === 0">No messages, say hi by using the message box below"></div>
+    <div *ngIf="messages.length === 0">
+      No messages, say hi by using the message box below">
+    </div>
 
     <ul *ngIf="messages.length > 0" class="chat">
       <li *ngFor="let message of messages">
@@ -15,11 +17,11 @@
           <div class="chat-body">
             <div class="header">
               <small class="text-muted">
-                <span class="fa fa-clock-o">{{message.messageSent }}</span>
+                <span class="fa fa-clock-o">{{message.messageSent + 'z' }}</span>
                 <span class="text-danger" *ngIf="!message.dateRead
                   && message.senderUsername !== username">(unread)</span>
                 <span class="text-success" *ngIf="message.dateRead
-                  && message.senderUsername !== username">(read{{message.dateRead}})</span>
+                  && message.senderUsername !== username">(read{{message.dateRead + 'z'}})</span>
               </small>
             </div>
             <p>{{message.content}}</p>
