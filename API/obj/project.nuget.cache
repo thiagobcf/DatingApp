@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6jEzN1ajULIHFpzjQBeqaZjGjN3mJ4nQhmi81Ox6kvxcyK0mb4P/MxYr/d3WvSUhDYGHoabljj6uLreB49J9GQ==",
+  "dgSpecHash": "rhmVWd1tXqFFEbXTXHDWkdnKy8s3Ttid/mf0DdRWdQP129oRYqTtVPRB7yqKjRRlbLuQ82ooOx3eEl1spW7hzQ==",
   "success": true,
   "projectFilePath": "/home/thiagobcf/projetos/DatingApp/API/API.csproj",
   "expectedPackageFiles": [
@@ -17,10 +17,11 @@
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore/7.0.16/microsoft.entityframeworkcore.7.0.16.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.16/microsoft.entityframeworkcore.abstractions.7.0.16.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.16/microsoft.entityframeworkcore.analyzers.7.0.16.nupkg.sha512",
-    "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.design/7.0.14/microsoft.entityframeworkcore.design.7.0.14.nupkg.sha512",
+    "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.design/7.0.16/microsoft.entityframeworkcore.design.7.0.16.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.16/microsoft.entityframeworkcore.relational.7.0.16.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.sqlite/7.0.14/microsoft.entityframeworkcore.sqlite.7.0.14.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.sqlite.core/7.0.14/microsoft.entityframeworkcore.sqlite.core.7.0.14.nupkg.sha512",
+    "/home/thiagobcf/.nuget/packages/microsoft.entityframeworkcore.tools/7.0.16/microsoft.entityframeworkcore.tools.7.0.16.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "/home/thiagobcf/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
