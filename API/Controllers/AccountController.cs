@@ -16,7 +16,8 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
 
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, 
+            IMapper mapper)
         {
             _userManager = userManager;
             _tokenService = tokenService;            
@@ -36,10 +37,14 @@ namespace API.Controllers
 
             if (!result.Succeeded) return BadRequest(result.Errors);  
 
+            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+
             return new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 KnowAs = user.KnownAs,
                 Gender = user.Gender
             };
@@ -61,7 +66,7 @@ namespace API.Controllers
             return new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 KnowAs = user.KnownAs,
                 Gender = user.Gender
