@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/user';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';
 
 @Component({
   selector: 'app-user-management',
@@ -9,8 +11,9 @@ import { User } from '../../_models/user';
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
+  bsModalRef: BsModalRef<RolesModalComponent> = new BsModalRef<RolesModalComponent>();
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private modalService: BsModalService) {}
 
   ngOnInit(): void { 
     this.getUsersWithRoles(); 
@@ -20,5 +23,21 @@ export class UserManagementComponent implements OnInit {
     this.adminService.getUsersWithRoles().subscribe({
       next: users => this.users = users
     })
+  }
+
+  openRolesModal() {
+    const initialState: ModalOptions = {
+      initialState: {
+        // propriedades
+        list: [
+          'Do thing',
+          'Another thing',
+          'Something else'
+        ],
+        title: 'Test modal'
+      }
+    }
+    this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
+    this.bsModalRef.content!.closeBtnName = 'Close';
   }
 }
