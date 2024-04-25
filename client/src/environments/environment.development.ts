@@ -1,4 +1,5 @@
 export const environment = {
    production: false, 
-   apiUrl: 'https://localhost:5001/api/'           // especificado no accont.service.ts 
+   apiUrl: 'https://localhost:5001/api/',           // especificado no accont.service.ts 
+   hubUrl: 'https://localhost:5001/hubs/'
 };
