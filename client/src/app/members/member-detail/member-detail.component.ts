@@ -8,6 +8,7 @@ import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { MemberMessagesComponent } from '../member-messages/member-messages.component';
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/message';
+import { PresenceService } from '../../_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -24,7 +25,7 @@ export class MemberDetailComponent implements OnInit {
   messages: Message[] = [];
 
   constructor(private memberService: MembersService, private route: ActivatedRoute, 
-    private messageService: MessageService) {}     // injeçao de dependencias
+    private messageService: MessageService, public presenceService: PresenceService) {}     // injeçao de dependencias
 
   ngOnInit(): void {
       this.route.data.subscribe({
