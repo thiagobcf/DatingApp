@@ -1,8 +1,9 @@
 using API.DTOs;
 using API.Entities;
 using API.Helpers;
+using Newtonsoft.Json.Linq;
 
-namespace API.interfaces
+namespace API.Interfaces
 {
     public interface IMessageRepository
     {
@@ -10,7 +11,12 @@ namespace API.interfaces
         void DeleteMessage(Message message);
         Task<Message> GetMessage(int id);
         Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams);
-        Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName);
+        Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientUserName); 
         Task<bool> SaveAllAsync();
+        void AddGroup(Group group);
+        void RemoveConnection(Connection connection);
+        Task<Connection> GetConnection(string connectionId);
+        Task<Group> GetMessageGroup(string groupName);
+        
     }
 }
