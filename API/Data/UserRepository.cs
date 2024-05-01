@@ -69,13 +69,7 @@ namespace API.Data
             return await _context.Users
                 .Include(p => p.Photos)
                 .ToListAsync();
-        }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;   // garantindo que as mudança sejam maior que zero, ou seja, se for zero retorna falso e maior que zero significa que algo foi salvo no banco de dados.
-        }
-
+        }       
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
