@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject } from "@angular/core";
 import { CanActivateFn } from '@angular/router';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -14,11 +14,9 @@ export const adminGuard: CanActivateFn = (route, state) => {
       if (user.roles.includes('Admin') || user.roles.includes('Moderator')) {
         return true;
       } else {
-        toastr.error('you cannot enter this area');
+        toastr.error('You cannot enter this area');
         return false;
       }
     })
   )
-
-  return true;
 };

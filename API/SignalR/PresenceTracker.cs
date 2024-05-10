@@ -2,34 +2,36 @@ namespace API.SignalR
 {
     public class PresenceTracker
     {
-        private static readonly Dictionary<string, List<string>> OnlineUsers =
+        private static readonly Dictionary<string, List<string>> OnlineUsers = 
             new Dictionary<string, List<string>>();
 
         public Task<bool> UserConnected(string username, string connectionId)
         {
             bool isOnline = false;
-            lock (OnlineUsers)
+            lock(OnlineUsers)
             {
                 if (OnlineUsers.ContainsKey(username))
                 {
                     OnlineUsers[username].Add(connectionId);
                 }
-                else
+                else 
                 {
-                    OnlineUsers.Add(username, new List<string> { connectionId });
+                    OnlineUsers.Add(username, new List<string>{connectionId});
                     isOnline = true;
                 }
             }
+
             return Task.FromResult(isOnline);
         }
 
         public Task<bool> UserDisconnected(string username, string connectionId)
         {
             bool isOffline = false;
+
             lock(OnlineUsers)
             {
                 if (!OnlineUsers.ContainsKey(username)) return Task.FromResult(isOffline);
-                
+
                 OnlineUsers[username].Remove(connectionId);
 
                 if (OnlineUsers[username].Count == 0)
@@ -38,6 +40,7 @@ namespace API.SignalR
                     isOffline = true;
                 }
             }
+
             return Task.FromResult(isOffline);
         }
 
@@ -46,8 +49,9 @@ namespace API.SignalR
             string[] onlineUsers;
             lock(OnlineUsers)
             {
-                onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();   // obtendo uma lista alfabetica dos ususarios que estao online 
+                onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();
             }
+
             return Task.FromResult(onlineUsers);
         }
 
@@ -55,7 +59,7 @@ namespace API.SignalR
         {
             List<string> connectionIds;
 
-            lock(OnlineUsers)
+            lock (OnlineUsers)
             {
                 connectionIds = OnlineUsers.GetValueOrDefault(username);
             }

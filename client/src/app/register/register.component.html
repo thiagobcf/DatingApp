@@ -2,8 +2,8 @@
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
 
-    <div class="mt-3">
-        <label style="margin-right: 10px;">I am a: </label>
+    <div class="mb-3">
+        <label style="margin-right:10px">I am a: </label>
         <label class="form-check-label">
             <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
         </label>
@@ -13,32 +13,21 @@
     </div>
 
     <app-text-input [formControl]="$any(registerForm.controls['username'])" 
-        [label]="'Username'">        
-    </app-text-input>
-
-    <app-text-input [formControl]="$any(registerForm.controls['knowAs'])" 
-        [label]="'Know As'">        
-    </app-text-input>
-
+        [label]="'Username'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" 
+        [label]="'Known As'"></app-text-input>
     <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" 
-        [label]="'Date Of Birth'" [maxDate]="maxDate">        
-    </app-date-picker>
-
+        [label]="'Date of Birth'" [maxDate]="maxDate"></app-date-picker >
     <app-text-input [formControl]="$any(registerForm.controls['city'])" 
-        [label]="'City'">        
-    </app-text-input>
-
+        [label]="'City'"></app-text-input>
     <app-text-input [formControl]="$any(registerForm.controls['country'])" 
-        [label]="'Country'">        
-    </app-text-input>
-
+        [label]="'Country'"></app-text-input>
     <app-text-input [formControl]="$any(registerForm.controls['password'])" 
-        [label]="'Password'"[type]="'password'">
+        [label]="'Password'" [type]="'password'">
     </app-text-input>
-    
     <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" 
-        [label]="'Confirm Password'"[type]="'confirmPassword'">
-    </app-text-input>
+        [label]="'Confirm Password'"
+        [type]="'password'"></app-text-input>
 
     <div class="row" *ngIf="validationErrors">
         <ul class="text-danger">
@@ -47,10 +36,9 @@
             </li>
         </ul>
     </div>
-    
+
     <div class="text-center">
         <button [disabled]="!registerForm.valid" class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
     </div>
 </form>
-

@@ -8,14 +8,12 @@ import {
 import { Observable, take } from 'rxjs';
 import { AccountService } from '../_services/account.service';
 
-
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
   constructor(private accountService: AccountService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>{
-    // qdo tiver obtido o que queremos essa assinatura sera concluida e não mais consume recursos do aplicativo
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if (user) {
@@ -26,7 +24,8 @@ export class JwtInterceptor implements HttpInterceptor {
           })
         }
       }
-    })          
+    })
+    
     return next.handle(request);
   }
 }

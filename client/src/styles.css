@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 .tab-panel {
     border: 1px solid #ddd;
     padding: 10px;
@@ -11,7 +10,7 @@
   }
   
   .member-tabset > .nav-tabs > li.open > a, .member-tabset > .nav-tabs > li:hover > a {
-    border: 0;
+    border: 0 !important;
     background: none !important;
     color: #333333;
   }
@@ -45,8 +44,7 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
-
-  .gallery {
-    height: 600px;
-  }
   
+  .nav-tabs {
+      --bs-nav-tabs-border-width: 0px;
+  }

@@ -1,18 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Member } from '../../_models/member';
 import { FileUploader } from 'ng2-file-upload';
-import { environment } from '../../../environments/environment';
-import { User } from '../../_models/user';
-import { AccountService } from '../../_services/account.service';
 import { take } from 'rxjs';
-import { Photo } from '../../_models/photo';
-import { MembersService } from '../../_services/members.service';
-
+import { Member } from 'src/app/_models/member';
+import { Photo } from 'src/app/_models/photo';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
+import { MembersService } from 'src/app/_services/members.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-photo-editor',
   templateUrl: './photo-editor.component.html',
-  styleUrl: './photo-editor.component.css'
+  styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() member: Member | undefined;
@@ -27,7 +26,7 @@ export class PhotoEditorComponent implements OnInit {
         if (user) this.user = user
       }
     })
-  }
+   }
 
   ngOnInit(): void {
     this.initializeUploader();
@@ -41,7 +40,7 @@ export class PhotoEditorComponent implements OnInit {
     this.memberService.setMainPhoto(photo.id).subscribe({
       next: () => {
         if (this.user && this.member) {
-          this.user.PhotoUrl = photo.url;
+          this.user.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user);
           this.member.photoUrl = photo.url;
           this.member.photos.forEach(p => {
@@ -53,15 +52,15 @@ export class PhotoEditorComponent implements OnInit {
     })
   }
 
-deletePhoto(photoId: number) {
-  this.memberService.deletePhoto(photoId).subscribe({
-    next: _ => {
-      if (this.member) {
-        this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+  deletePhoto(photoId: number) {
+    this.memberService.deletePhoto(photoId).subscribe({
+      next: _ => {
+        if (this.member) {
+          this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+        }
       }
-    }
-  })
-}  
+    })
+  }
 
   initializeUploader() {
     this.uploader = new FileUploader({
@@ -83,7 +82,7 @@ deletePhoto(photoId: number) {
         const photo = JSON.parse(response);
         this.member?.photos.push(photo);
         if (photo.isMain && this.user && this.member) {
-          this.user.PhotoUrl = photo.url;
+          this.user.photoUrl = photo.url;
           this.member.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user);
         }

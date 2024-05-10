@@ -6,7 +6,7 @@ import { MessageService } from '../_services/message.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrl: './messages.component.css'
+  styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
   messages?: Message[];
@@ -15,7 +15,7 @@ export class MessagesComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   loading = false;
-  
+
   constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class MessagesComponent implements OnInit {
 
   deleteMessage(id: number) {
     this.messageService.deleteMessage(id).subscribe({
-      next: () => this.messages?.splice(this.messages.findIndex(m => m.id === id), 1)      
+      next: () => this.messages?.splice(this.messages.findIndex(m => m.id === id), 1)
     })
   }
 
@@ -45,4 +45,5 @@ export class MessagesComponent implements OnInit {
       this.loadMessages();
     }
   }
+
 }

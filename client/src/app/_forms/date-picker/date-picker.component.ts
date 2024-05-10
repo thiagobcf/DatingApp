@@ -1,4 +1,4 @@
-import { Component, Input, Self } from '@angular/core';
+import { Component, Input, OnInit, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -9,25 +9,28 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class DatePickerComponent implements ControlValueAccessor {
   @Input() label = '';
-  @Input() maxDate: Date | undefined;        // aqui permite que apenas usuarios com idade = ou + a 18 anos, seja permitido acesso.
+  @Input() maxDate: Date | undefined;
   bsConfig: Partial<BsDatepickerConfig> | undefined;
 
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
     this.bsConfig = {
-      containerClass: 'theme-blue',         // escolha do tema 
-      dateInputFormat: 'DD MMMM YYYY',                 
+      containerClass: 'theme-red',
+      dateInputFormat: 'DD MMMM YYYY'
     }
+   }
+
+  writeValue(obj: any): void {
+  }
+  
+  registerOnChange(fn: any): void {
   }
 
-  writeValue(obj: any): void {    
+  registerOnTouched(fn: any): void {
   }
-  registerOnChange(fn: any): void {    
-  }
-  registerOnTouched(fn: any): void {    
-  } 
 
   get control(): FormControl {
     return this.ngControl.control as FormControl
   }
+
 }

@@ -1,6 +1,5 @@
 using API.Data;
 using API.Helpers;
-using API.interfaces;
 using API.Interfaces;
 using API.Services;
 using API.SignalR;
@@ -18,11 +17,11 @@ namespace API.Extensions
                 opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
-            services.AddScoped<ITokenService, TokenService>();            
+            services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.Configure<CloudinarySettings>(config.GetSection("CloundinarySettings"));
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddScoped<LogUserActivity>();            
+            services.AddScoped<LogUserActivity>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

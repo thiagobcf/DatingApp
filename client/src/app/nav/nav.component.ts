@@ -4,8 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
-import { NgModel } from '@angular/forms';
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-nav',

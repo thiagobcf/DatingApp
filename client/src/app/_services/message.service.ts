@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
-import { Message } from '../_models/message';
+import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { User } from '../_models/user';
 import { BehaviorSubject, take } from 'rxjs';
-import { group } from 'console';
+import { environment } from 'src/environments/environment';
 import { Group } from '../_models/group';
+import { Message } from '../_models/message';
+import { User } from '../_models/user';
+import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +17,12 @@ export class MessageService {
   private hubConnection?: HubConnection;
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
-  
+
   constructor(private http: HttpClient) { }
 
-  createHubConnection(user: User, outherUsername: string) {
+  createHubConnection(user: User, otherUsername: string) {
     this.hubConnection = new HubConnectionBuilder()
-      // rota especificada na classe Program(message)
-      .withUrl(this.hubUrl + 'message?user=' + outherUsername, {
+      .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
         accessTokenFactory: () => user.token
       })
       .withAutomaticReconnect()
@@ -32,12 +30,12 @@ export class MessageService {
 
     this.hubConnection.start().catch(error => console.log(error));
 
-    this.hubConnection.on('ReceiverMessageThread', messages => {
+    this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
     })
 
     this.hubConnection.on('UpdatedGroup', (group: Group) => {
-      if (group.connections.some(x => x.username === outherUsername)) {
+      if (group.connections.some(x => x.username === otherUsername)) {
         this.messageThread$.pipe(take(1)).subscribe({
           next: messages => {
             messages.forEach(message => {
@@ -45,7 +43,7 @@ export class MessageService {
                 message.dateRead = new Date(Date.now())
               }
             })
-            this.messageThreadSource.next([...messages])
+            this.messageThreadSource.next([...messages]);
           }
         })
       }
@@ -54,7 +52,7 @@ export class MessageService {
     this.hubConnection.on('NewMessage', message => {
       this.messageThread$.pipe(take(1)).subscribe({
         next: messages => {
-          this.messageThreadSource.next([...messages, message])  // usando operador de propagaçao, pois não vai modificar o array(cria um novo em substituicao ao ja existente)
+          this.messageThreadSource.next([...messages, message])
         }
       })
     })
@@ -62,15 +60,13 @@ export class MessageService {
 
   stopHubConnection() {
     if (this.hubConnection) {
-      this.hubConnection?.stop();
-    }    
+      this.hubConnection.stop();
+    }
   }
 
   getMessages(pageNumber: number, pageSize: number, container: string) {
     let params = getPaginationHeaders(pageNumber, pageSize);
-
     params = params.append('Container', container);
-    
     return getPaginatedResult<Message[]>(this.baseUrl + 'messages', params, this.http);
   }
 

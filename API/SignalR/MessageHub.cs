@@ -1,7 +1,6 @@
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
-using API.interfaces;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -10,8 +9,8 @@ using Microsoft.AspNetCore.SignalR;
 namespace API.SignalR
 {
     [Authorize]
-    public class MessageHub: Hub
-    {        
+    public class MessageHub : Hub
+    {
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
         private readonly IUnitOfWork _uow;
@@ -19,7 +18,7 @@ namespace API.SignalR
         {
             _uow = uow;
             _presenceHub = presenceHub;
-            _mapper = mapper;                       
+            _mapper = mapper;
         }
 
         public override async Task OnConnectedAsync()
@@ -27,18 +26,19 @@ namespace API.SignalR
             var httpContext = Context.GetHttpContext();
             var otherUser = httpContext.Request.Query["user"];
             var groupName = GetGroupName(Context.User.GetUsername(), otherUser);
-
-            await Groups.AddToGroupAsync(Context.ConnectionId,groupName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             var group = await AddToGroup(groupName);
 
             await Clients.Group(groupName).SendAsync("UpdatedGroup", group);
 
-            var messages = await _uow.MessageRepository.
-                GetMessageThread(Context.User.GetUsername(), otherUser);
-            
+            var messages = await _uow.MessageRepository
+                .GetMessageThread(Context.User.GetUsername(), otherUser);
+
+            var changes = _uow.HasChanges();
+
             if (_uow.HasChanges()) await _uow.Complete();
 
-            await Clients.Caller.SendAsync("ReceiverMessageThread", messages);   // qdo um usuario se conectar ao(hub message) fara isso no contexto da pagina
+            await Clients.Caller.SendAsync("ReceiveMessageThread", messages);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -52,34 +52,34 @@ namespace API.SignalR
         {
             var username = Context.User.GetUsername();
 
-            if (username == createMessageDto.RecipentUsername.ToLower())
-            throw new HubException("You cannot send messages to youself");
+            if (username == createMessageDto.RecipientUsername.ToLower())
+                throw new HubException("You cannot send messages to yourself");
 
             var sender = await _uow.UserRepository.GetUserByUsernameAsync(username);
-            var recipent = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipentUsername);
+            var recipient = await _uow.UserRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
-            if (recipent == null) throw new HubException("Not found user");
+            if (recipient == null) throw new HubException("Not found user");
 
             var message = new Message
             {
                 Sender = sender,
-                Recipient = recipent,
+                Recipient = recipient,
                 SenderUsername = sender.UserName,
-                RecipentUsername = recipent.UserName,
+                RecipientUsername = recipient.UserName,
                 Content = createMessageDto.Content
             };
 
-            var groupName = GetGroupName(sender.UserName, recipent.UserName);
+            var groupName = GetGroupName(sender.UserName, recipient.UserName);
 
             var group = await _uow.MessageRepository.GetMessageGroup(groupName);
 
-            if (group.Connections.Any(x => x.Username == recipent.UserName))
+            if (group.Connections.Any(x => x.Username == recipient.UserName))
             {
-               message.DateRead = DateTime.UtcNow; 
+                message.DateRead = DateTime.UtcNow;
             }
             else
             {
-                var connections = await PresenceTracker.GetConnectionsForUser(recipent.UserName);
+                var connections = await PresenceTracker.GetConnectionsForUser(recipient.UserName);
                 if (connections != null)
                 {
                     await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived",
@@ -89,10 +89,10 @@ namespace API.SignalR
 
             _uow.MessageRepository.AddMessage(message);
 
-            if (await _uow.Complete()) 
-            {                
+            if (await _uow.Complete())
+            {
                 await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
-            }                
+            }
         }
 
         private string GetGroupName(string caller, string other)
@@ -100,7 +100,7 @@ namespace API.SignalR
             var stringCompare = string.CompareOrdinal(caller, other) < 0;
             return stringCompare ? $"{caller}-{other}" : $"{other}-{caller}";
         }
-        
+
         private async Task<Group> AddToGroup(string groupName)
         {
             var group = await _uow.MessageRepository.GetMessageGroup(groupName);
@@ -114,12 +114,12 @@ namespace API.SignalR
 
             group.Connections.Add(connection);
 
-            if(await _uow.Complete()) return group;  
+            if (await _uow.Complete()) return group;
 
-            throw new HubException("Failed to add to group");        
+            throw new HubException("Failed to add to group");
         }
 
-        public async Task<Group> RemoveFromMessageGroup()
+        private async Task<Group> RemoveFromMessageGroup()
         {
             var group = await _uow.MessageRepository.GetGroupForConnection(Context.ConnectionId);
             var connection = group.Connections.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);

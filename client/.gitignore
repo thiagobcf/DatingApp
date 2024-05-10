@@ -40,7 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
-
-
-/home/thiagobcf/projetos/DatingApp/API/appsettings.json

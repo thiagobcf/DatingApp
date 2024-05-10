@@ -2,13 +2,13 @@ namespace API.Extensions
 {
     public static class DateTimeExtensions
     {
-        public static int CalculateAge(this DateOnly dob)
+        public static int CalcuateAge(this DateOnly dob)
         {
             var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
             var age = today.Year - dob.Year;
 
-            if (dob > today.AddDays(-age)) age--;   /// posssivel erro no caso de ano bissexto.
+            if (dob > today.AddYears(-age)) age--;
 
             return age;
         }

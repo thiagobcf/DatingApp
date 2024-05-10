@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';
-import { User } from '../../_models/user';
-import { AdminService } from '../../_services/admin.service';
-
+import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
+import { User } from 'src/app/_models/user';
+import { AdminService } from 'src/app/_services/admin.service';
 
 @Component({
   selector: 'app-user-management',
@@ -45,7 +44,7 @@ export class UserManagementComponent implements OnInit {
       next: () => {
         const selectedRoles = this.bsModalRef.content?.selectedRoles;
         if (!this.arrayEqual(selectedRoles!, user.roles)) {
-          this.adminService.updateUserRoles(user.username, selectedRoles!.join(',')).subscribe({
+          this.adminService.updateUserRoles(user.username, selectedRoles!).subscribe({
             next: roles => user.roles = roles
           })
         }

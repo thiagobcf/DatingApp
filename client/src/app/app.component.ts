@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from './_services/account.service';
 import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,13 @@ import { User } from './_models/user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Dating app';  
+  title = 'Dating app';
 
   constructor(private accountService: AccountService) {}
-  
-  ngOnInit(): void {    
+
+  ngOnInit(): void {
     this.setCurrentUser();
-  } 
+  }
 
   setCurrentUser() {
     const userString = localStorage.getItem('user');
@@ -22,5 +22,6 @@ export class AppComponent implements OnInit {
     const user: User = JSON.parse(userString);
     this.accountService.setCurrentUser(user);
   }
-  
+
+
 }
